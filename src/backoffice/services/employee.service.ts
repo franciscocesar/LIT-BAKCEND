@@ -4,7 +4,6 @@ import { Model } from 'mongoose';
 import { UpdatePasswordDto } from '../dtos/employee/update-password.dto';
 import { UpdateEmployeeDto } from '../dtos/employee/update.employee.dto';
 import { Employee } from '../models/employee.model';
-import { requiredFildsAlreadyExist } from '../shared/requiredFiled';
 
 @Injectable()
 export class EmployeeService {
@@ -13,7 +12,13 @@ export class EmployeeService {
   ) {}
 
   async createEmployee(data: Employee) {
-    for (const field of requiredFildsAlreadyExist(data)) {
+    const requiredFildsAlreadyExist = [
+      { email: data.email },
+      { document: data.document },
+      { registrationNumber: data.registrationNumber },
+    ];
+
+    for (const field of requiredFildsAlreadyExist) {
       const fieldAlreadyExist = await this.model.find(field);
 
       if (fieldAlreadyExist.length > 0) {
