@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Flunt } from 'src/utils/flunt';
-import { Employee } from '../models/employee.model';
-import { Contract } from './contract';
+import { Employee } from '../../models/employee.model';
+import { Contract } from '../contract';
 
 @Injectable()
 export class CreateEmployeeContract implements Contract {
