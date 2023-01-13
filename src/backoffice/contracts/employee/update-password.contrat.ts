@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UpdataPasswordDto } from 'src/backoffice/dtos/employee/update-password.dto';
+import { UpdatePasswordDto } from 'src/backoffice/dtos/employee/update-password.dto';
 import { Flunt } from 'src/utils/flunt';
 import { Contract } from '../contract';
 
@@ -7,7 +7,7 @@ import { Contract } from '../contract';
 export class UpdatePasswordContract implements Contract {
   errors: any[];
 
-  validate(model: UpdataPasswordDto): boolean {
+  validate(model: UpdatePasswordDto): boolean {
     const flunt = new Flunt();
 
     flunt.isPasswordValid(

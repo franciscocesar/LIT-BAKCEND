@@ -15,7 +15,7 @@ import { ValidatorInterceptor } from 'src/interceptors/validator.interceptor';
 import { CreateEmployeeContract } from '../contracts/employee/create-employee.contracts';
 import { UpdateEmployeeContract } from '../contracts/employee/update-employee.contract';
 import { UpdatePasswordContract } from '../contracts/employee/update-password.contrat';
-import { UpdataPasswordDto } from '../dtos/employee/update-password.dto';
+import { UpdatePasswordDto } from '../dtos/employee/update-password.dto';
 import { UpdateEmployeeDto } from '../dtos/employee/update.employee.dto';
 import { ResultDto } from '../dtos/result.dto';
 import { Employee } from '../models/employee.model';
@@ -88,7 +88,7 @@ export class EmployeeController {
   @UseInterceptors(new ValidatorInterceptor(new UpdatePasswordContract()))
   async updatePassowrd(
     @Param('document') document,
-    @Body() model: UpdataPasswordDto,
+    @Body() model: UpdatePasswordDto,
   ) {
     try {
       const password = await Md5.init(
