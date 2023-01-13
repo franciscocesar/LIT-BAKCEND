@@ -37,9 +37,6 @@ export const EmployeeSchema = new mongoose.Schema({
     type: Date,
     required: true,
     default: Date.now(),
-    index: {
-      unique: true,
-    },
   },
   registrationNumber: {
     type: Number,
