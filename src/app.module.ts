@@ -4,7 +4,9 @@ import { BackofficeModule } from './backoffice/backoffice.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.CONNECTION_STRING),
+    MongooseModule.forRoot(
+      'mongodb+srv://franciscocsar:m87KxgoURKMLTgP2@database.geztvc1.mongodb.net/?retryWrites=true&w=majority',
+    ),
     BackofficeModule,
   ],
   controllers: [],
