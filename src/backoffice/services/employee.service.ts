@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { UpdataPasswordDto } from '../dtos/employee/update-password.dto';
+import { UpdatePasswordDto } from '../dtos/employee/update-password.dto';
 import { UpdateEmployeeDto } from '../dtos/employee/update.employee.dto';
 import { Employee } from '../models/employee.model';
 import { requiredFildsAlreadyExist } from '../shared/requiredFiled';
@@ -39,7 +39,7 @@ export class EmployeeService {
     return await this.model.findOneAndUpdate({ document }, data);
   }
 
-  async updatePassword(document: string, data: UpdataPasswordDto) {
+  async updatePassword(document: string, data: UpdatePasswordDto) {
     return await this.model.findOneAndUpdate({ document }, data);
   }
 }
