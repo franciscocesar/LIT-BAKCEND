@@ -23,7 +23,7 @@ import { EmployeeService } from '../services/employee.service';
 
 @Controller('v1/employee')
 export class EmployeeController {
-  constructor(private readonly employeeService: EmployeeService) {}
+  constructor(private readonly employeeService: EmployeeService) { }
 
   @Get()
   async get() {
@@ -94,8 +94,25 @@ export class EmployeeController {
       const password = await Md5.init(
         `${model.password}${process.env.SALT_KEY}`,
       );
+
+      console.log(password)
       await this.employeeService.updatePassword(document, { password });
       return new ResultDto('Senha alterada com sucesso', true, model, null);
+    } catch (error) {
+      throw new HttpException(
+        new ResultDto('Erro ao atualizar cadastro a senha', false, null, error),
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+  @Put('enable-or-disabled/:document')
+  async updateStatus(
+    @Param('document') document
+  ) {
+    try {
+
+      await this.employeeService.enableOrDisableEmployee(document);
+      return new ResultDto('Status alterado com sucesso', true, model, null);
     } catch (error) {
       throw new HttpException(
         new ResultDto('Erro ao atualizar cadastro a senha', false, null, error),
