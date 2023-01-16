@@ -9,7 +9,7 @@ import { Employee } from '../models/employee.model';
 export class EmployeeService {
   constructor(
     @InjectModel('Employee') private readonly model: Model<Employee>,
-  ) {}
+  ) { }
 
   async createEmployee(data: Employee) {
     const requiredFildsAlreadyExist = [
@@ -46,5 +46,10 @@ export class EmployeeService {
 
   async updatePassword(document: string, data: UpdatePasswordDto) {
     return await this.model.findOneAndUpdate({ document }, data);
+  }
+  async enableOrDisableEmployee(document: string) {
+    const employee = await this.model.findOne({ document }, 'active')
+
+    return await this.model.findOneAndUpdate({ document }, { active: !employee.active })
   }
 }
