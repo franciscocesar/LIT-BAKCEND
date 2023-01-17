@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseInterceptors,
 } from '@nestjs/common';
 import { Md5 } from 'md5-typescript';
@@ -29,6 +30,26 @@ export class EmployeeController {
   async get() {
     const employee = await this.employeeService.findAllEmployees();
     return new ResultDto(null, true, employee, null);
+  }
+
+  @Get('search')
+  async getSearch(@Query('name') name) {
+
+    try {
+      const employee = await this.employeeService.searchEmployee(name)
+      return new ResultDto(null, true, employee, null);
+    } catch (error) {
+      throw new HttpException(
+        new ResultDto(
+          'Erro ao fazer a busca',
+          false,
+          null,
+          error,
+        ),
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
   }
 
   @Post()
@@ -95,7 +116,6 @@ export class EmployeeController {
         `${model.password}${process.env.SALT_KEY}`,
       );
 
-      console.log(password)
       await this.employeeService.updatePassword(document, { password });
       return new ResultDto('Senha alterada com sucesso', true, model, null);
     } catch (error) {
