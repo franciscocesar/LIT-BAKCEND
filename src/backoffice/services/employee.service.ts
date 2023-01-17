@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { SearchEmployeerDto } from '../dtos/employee/search.employeer.dto.';
 import { UpdatePasswordDto } from '../dtos/employee/update-password.dto';
 import { UpdateEmployeeDto } from '../dtos/employee/update.employee.dto';
 import { Employee } from '../models/employee.model';
@@ -51,5 +52,8 @@ export class EmployeeService {
     const employee = await this.model.findOne({ document }, 'active')
 
     return await this.model.findOneAndUpdate({ document }, { active: !employee.active })
+  }
+  async searchEmployee(name: SearchEmployeerDto) {
+    return await this.model.find({ name: { $regex: `${name || ""}`, $options: "i" } }).sort({ _id: -1 })
   }
 }
